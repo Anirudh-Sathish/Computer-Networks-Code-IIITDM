@@ -1,7 +1,6 @@
 /*
         Lab 2 : LRC 
         @Author : Anirudh Sathish
-        Roll_no : CS20B1125 
 */
 
 #include<stdio.h>
