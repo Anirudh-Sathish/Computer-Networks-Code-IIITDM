@@ -2,7 +2,6 @@
                     Lab 2 : Computer Networks
                     Assgn : Vertical Redundancy Check 
                     @Author : Anirudh Sathish 
-                    Roll_no : CS20B1125
 */
 
 // Defeining the header files 
