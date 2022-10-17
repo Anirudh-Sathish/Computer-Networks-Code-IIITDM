@@ -1,6 +1,5 @@
 /*
 @ Author : Anirudh Sathish 
-@ Roll No : CS20B1125 
 
 Consider a big single network of any class. Create and calculate the following:
 1.      Divide the network into subnets.
