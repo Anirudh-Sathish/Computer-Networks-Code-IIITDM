@@ -1,5 +1,4 @@
 /*
-@ Author : Anirudh Sathish 
 
 Consider a big single network of any class. Create and calculate the following:
 1.      Divide the network into subnets.
