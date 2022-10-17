@@ -198,6 +198,7 @@ int checksubpow(int count)
 }
 
 
+// Maintaining count of ?
 void Subnet(char *ip_addr,int subnet_count,int subnetBit,int host_id_bit)
 {
     int length_ip = strlen(ip_addr);
@@ -206,11 +207,19 @@ void Subnet(char *ip_addr,int subnet_count,int subnetBit,int host_id_bit)
     part_count = 0 ;
 
     char res[32] ;
+    char res2[32];
+    char result[32]="";
+    char result2[32] = "";
+    char limitedBroadcast[20] = "255.255.255.255";
+    char *resu;
+    int val;
     
     int arr[4]; 
+    char zero[3]="0";
     char *token = strtok(ip_addr, ".");
     int integral_value = 0 ;
     int i = 0;
+    char final[32] = "";
     while (token != NULL)
     {
         integral_value = atoi(token);
@@ -219,27 +228,149 @@ void Subnet(char *ip_addr,int subnet_count,int subnetBit,int host_id_bit)
         token = strtok(NULL,".");
     }
     char dot[3] = ".";
+    int class ;
+    char *resu2;
     printf("The host bit count is %d \n",host_id_bit);
     if(host_id_bit <24 && host_id_bit >=16)
-    {
+    {   
         char *resu = itoa(arr[0],res,10);
-        printf("The value is %s \n",resu);
         strcat(resu,dot);
-        printf("The resultant is %s \n",resu);
-        
+        strcat(result,resu);
+        for(i = 1 ; i<4; i++)
+        {
+            if(arr[i] !=0)
+            {
+                printf("This ip is not being accepted according to the condition we are checking for \n");
+                break;
+            }
+            resu = itoa(arr[i],res,10);
+            if(i!=3)
+            {
+                strcat(resu,dot);
+            }
+            strcat(result,resu);
+
+        }
+        class = 1;
+        // if subnet bits < 8 ?
+        int j;
+        char empty[32] = "";
+        char hold_final[32]= "";
+        char end[32] = "255";
+        int val1;
+        if(subnetBit <= 8)
+        {
+            // From i = 0 to subnetBit -1 
+            for(i = subnet_count-1 ; i >= 0 ; i--)
+            {
+                strcpy(final,empty);
+                // Starting arr[0]+"."+ 256- i*256/subnetBit + "." + "0"+"."+"0"
+                resu = itoa(arr[0],res,10);
+                strcat(final,resu);
+                strcat(final,dot);
+                strcpy(hold_final,final);
+                val = 256 - (i+1)*(256/subnet_count);
+                val1 = 256 - (i)*(256/subnet_count)-1;
+                resu = itoa(val,res,10);
+                resu2 = itoa(val1,res2,10);
+                strcat(final,resu);
+                strcat(final,dot);
+
+                strcat(hold_final,resu2);
+                strcat(hold_final,dot);
+
+                
+                
+                for(j =2 ; j < 4 ; j++)
+                {
+                    strcat(final,zero);
+                    strcat(hold_final,end);
+                    if(j != 3)
+                    {
+                        strcat(final,dot);
+                        strcat(hold_final,dot);
+                    }
+                }
+                // Printing all neccesary information 
+                printf("For Subnet %d :" , subnet_count - i);
+                printf("\n Starting IP : %s \n", final );
+                printf(" Final IP : %s \n",hold_final);
+                printf(" Direct Broadcast : %s  \n",hold_final);
+                printf(" Limited Broadcast : %s \n",limitedBroadcast);
+                printf(" Range: %s - %s \n",final,hold_final);
+                printf("\n----------------------------------- \n \n");
+
+                
+            }
+            
+        }
+       
+        // From i = 0 to subnetBit -1 
+        // Starting arr[0]+"."+ "255"+ "." + "255"+ "." + 256- i*256/subnetBit  
+
+        // if subnet bits = 24 
+        // Reject 
     }
     else if (host_id_bit <16 && host_id_bit >=8)
     {
         // Deal with first and second octet 
         // Tokenize twice
+        for(i = 0 ; i < 2 ; i++)
+        {
+            resu = itoa(arr[i],res,10);
+            strcat(resu,dot);
+            strcat(result,resu);
+
+        }
+        for(; i<4; i++)
+        {
+            if(arr[i] !=0)
+            {
+                printf("This ip is not being accepted according to the condition we are checking for \n");
+                break;
+            }
+            resu = itoa(arr[i],res,10);
+            if(i!=3)
+            {
+                strcat(resu,dot);
+            }
+            strcat(result,resu);
+
+        }
+        class = 2;
+        
     }
     else if(host_id_bit >8 && host_id_bit >0)
     {
         // Deal with the first , second and third octet 
-        // Tokenize thrice 
-    }
-}
+        // Tokenize thrice
+        for(i = 0 ; i < 3 ; i++)
+        {
+            resu = itoa(arr[i],res,10);
+            strcat(result,resu);
+            strcat(result,dot);
+        }
+        for( ; i<4; i++)
+        {
+            if(arr[i] !=0)
+            {
+                printf("This ip is not being accepted according to the condition we are checking for \n");
+                break;
+            }
+            resu = itoa(arr[i],res,10);
+            if(i!=3)
+            {
+                strcat(resu,dot);
+            }
+            strcat(result,resu);
 
+        }
+        class = 3;
+        printf("The starting IP is %s \n",result);
+
+    }
+    //Print the IP's of all the subnet =s 
+}
 int main()
 {
     // extra space to check if error from users 
