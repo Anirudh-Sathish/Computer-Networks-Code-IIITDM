@@ -38,7 +38,7 @@ int *Channel(int mode,int *array, int N,int start)
 	int decider ,j;
 
 	printf(" \n------------------------------------------------ \n\n ");
-	printf("In channel \n ");
+	//printf("In channel \n ");
 	for(	j = 0 ; j < N ; j++)
 	{
 		// creted noise 
@@ -46,7 +46,7 @@ int *Channel(int mode,int *array, int N,int start)
 		if(decider ==0)
 		{ 
 			array[j] = -1;}
-			printf("%d \n",array[j]);
+			//printf("%d \n",array[j]);
 		}
 
 		// Now send the array to the rec

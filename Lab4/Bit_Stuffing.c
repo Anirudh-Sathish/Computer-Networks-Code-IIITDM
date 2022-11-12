@@ -157,13 +157,13 @@ int main()
     printf("Enter the message \n");
     scanf("%s",message);
 
-    message = insertFlag(message,inputLen);
-    printf("The message after flag addition is %s \n",message);
+    //message = insertFlag(message,inputLen);
+    //printf("The message after flag addition is %s \n",message);
 
 
 
     char *bitstuffedres ;
-    int totalLen = inputLen+16;
+    int totalLen = inputLen;
     bitstuffedres = bitStuffMe(message,totalLen);
     printf("The resultant \n%s \n",bitstuffedres);
 }
